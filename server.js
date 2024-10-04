@@ -3,6 +3,7 @@ import { getRequest } from './actions/get.js';
 import { postRequest } from './actions/post.js';
 import { putRequest } from './actions/put.js';
 import { deleteRequest } from './actions/delete.js';
+import { getBody } from './helpers.js';
 import data from "./data.js";
 
 const PORT = process.env.PORT || 4000
@@ -16,25 +17,25 @@ server.on("request", (request, response) => {
 
     switch (request.method) {
         case "GET":
-            getRequest(request, response)
-            break
+            getBody(request, response, get);
+            break;
 
         case "POST":
-            postRequest(request, response)
-            break
+            getBody(request, response, post);
+            break;
 
         case "PUT":
-            putRequest(request, response)
-            break
+            getBody(request, response, put);
+            break;
 
         case "DELETE":
-            deleteRequest(request, response)
-            break
+            getBody(request, response, deleteR);
+            break;
 
         default:
-            response.statusCode = 400
-            response.write("No Response")
-            response.end()
+            response.statusCode = 400;
+            response.write("No Response");
+            response.end();
     }
 })
 
