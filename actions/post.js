@@ -1,4 +1,4 @@
-import { getUrlSegments } from '../helpers.js';
+import { getUrlSegments, show404 } from '../helpers.js';
 import { v4 as uuidv4 } from 'uuid';
 
 const postRequest = (request, response) => {
@@ -25,7 +25,7 @@ const postRequest = (request, response) => {
 
                 request.users.push(newUser);
 
-                response.statusCode = 200;
+                response.statusCode = 201;
                 response.setHeader("Content-Type", "application/json");
                 response.write(JSON.stringify(request.users));
                 response.end();
@@ -42,10 +42,8 @@ const postRequest = (request, response) => {
             break;
 
         default:
-            // Handle invalid routes
-            response.statusCode = 400;
-            response.write(`CANNOT POST ${request.url}`);
-            response.end();
+            show404(response, request.url);
+            break;
     }
 }
 

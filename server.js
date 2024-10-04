@@ -1,4 +1,6 @@
 import * as http from 'http';
+import "dotenv/config";
+
 import { getRequest } from './actions/get.js';
 import { postRequest } from './actions/post.js';
 import { putRequest } from './actions/put.js';
@@ -6,9 +8,9 @@ import { deleteRequest } from './actions/delete.js';
 import { getBody } from './helpers.js';
 import data from "./data.js";
 
-const PORT = process.env.PORT || 4000
+const PORT = process.env.PORT;
 
-const server = http.createServer()
+const server = http.createServer();
 
 server.on("request", (request, response) => {
 
@@ -41,5 +43,5 @@ server.on("request", (request, response) => {
 
 
 server.listen(PORT, err => {
-    err ? console.error(err) : console.log(`listening on port ${PORT}`)
+    err ? console.error(err) : console.log(`listening on port ${PORT}`);
 })

@@ -1,4 +1,4 @@
-import { getUrlSegments } from '../helpers.js';
+import { getUrlSegments, show404 } from '../helpers.js';
 
 const getRequest = (request, response) => {
 
@@ -14,7 +14,7 @@ const getRequest = (request, response) => {
                     response.write(JSON.stringify(request.users[id]));
                     response.end();
                 } else {
-                    response.statusCode = 404;
+                    response.statusCode = 400;
                     response.write(`User with ID ${id} not found`);
                     response.end();
                 }
@@ -28,9 +28,8 @@ const getRequest = (request, response) => {
             break;
     
         default:
-            response.statusCode = 400;
-            response.write(`CANNOT GET ${request.url}`);
-            response.end();
+            show404(response, request.url);
+            
             break;
     }
 }

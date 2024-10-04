@@ -7,7 +7,7 @@ const getBody = (request, response, next) => {
 
     request.on("end", () => {
         request.body = Buffer.concat(data).toString();
-        if (request.headers["content-type"] === "application/json"){
+        if (request.headers["content-type"] === "application/json") {
 
             request.body = JSON.parse(request.body);
         }
@@ -20,7 +20,14 @@ const getUrlSegments = (url) => {
     return url.split("/").filter(segment => segment !== "");
 };
 
-export { 
+const show404 = (response, url) => {
+    response.statusCode = 404;
+    response.write(`Cannot find ${url}`);
+    response.end();
+};
+
+export {
     getBody,
-    getUrlSegments
+    getUrlSegments,
+    show404
 };

@@ -1,4 +1,4 @@
-import { getUrlSegments } from '../helpers.js';
+import { getUrlSegments, show404 } from '../helpers.js';
 
 const putRequest = (request, response) => {
     const urlSegments = getUrlSegments(request.url);
@@ -29,7 +29,7 @@ const putRequest = (request, response) => {
             const existingUser = request.users.find(id);
 
             if (!existingUser) {
-                response.statusCode = 404;
+                response.statusCode = 400;
                 response.write(`User with ID ${id} not found`);
                 response.end();
                 return;
@@ -50,9 +50,7 @@ const putRequest = (request, response) => {
             break;
 
         default:
-            response.statusCode = 400;
-            response.write(`CANNOT PUT ${request.url}`);
-            response.end();
+            show404(response, request.url);
             break;
 
     }
