@@ -1,6 +1,11 @@
+import { getUrlSegments } from '../helpers.js';
+
 const postRequest = (request, response) => {
-    switch (request.url) {
-        case "/users":
+
+    const urlSegments = getUrlSegments(request.url);
+
+    switch (urlSegments[0]) {
+        case "users":
             request.posts.push(request.body);
             response.statusCode = 200;
             response.setHeader("Content-Type", "application/json");

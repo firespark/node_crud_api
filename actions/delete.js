@@ -1,13 +1,15 @@
-const deleteRequest = (request, response) => {
-    const url = request.url.split("?")[0];
+import { getUrlSegments } from '../helpers.js';
 
-    switch (url) {
-        case "/users":
-            const id = request.query.searchParams.get("id");
+const deleteRequest = (request, response) => {
+    const urlSegments = getUrlSegments(request.url);
+
+    switch (urlSegments[0]) {
+        case "users":
+            const id = urlSegments[1];
             response.statusCode = 200;
             response.setHeader("Content-Type", "application/json");
-            request.posts.splice(id, 1);
-            response.write(JSON.stringify(request.posts));
+            request.users.splice(id, 1);
+            response.write(JSON.stringify(request.users));
             response.end();
             break;
 

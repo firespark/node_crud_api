@@ -1,19 +1,26 @@
 const getBody = (request, response, next) => {
-    let data = []
+    let data = [];
 
     request.on("data", dataChunk => {
-        data.push(dataChunk)
+        data.push(dataChunk);
     })
 
     request.on("end", () => {
-        request.body = Buffer.concat(data).toString()
+        request.body = Buffer.concat(data).toString();
         if (request.headers["content-type"] === "application/json"){
 
-            request.body = JSON.parse(request.body)
+            request.body = JSON.parse(request.body);
         }
 
-        next(request, response)
+        next(request, response);
     })
 }
 
-export { getBody };
+const getUrlSegments = (url) => {
+    return url.split("/").filter(segment => segment !== "");
+};
+
+export { 
+    getBody,
+    getUrlSegments
+};
