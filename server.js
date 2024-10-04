@@ -17,19 +17,19 @@ server.on("request", (request, response) => {
 
     switch (request.method) {
         case "GET":
-            getBody(request, response, get);
+            getBody(request, response, getRequest);
             break;
 
         case "POST":
-            getBody(request, response, post);
+            getBody(request, response, postRequest);
             break;
 
         case "PUT":
-            getBody(request, response, put);
+            getBody(request, response, putRequest);
             break;
 
         case "DELETE":
-            getBody(request, response, deleteR);
+            getBody(request, response, deleteRequest);
             break;
 
         default:

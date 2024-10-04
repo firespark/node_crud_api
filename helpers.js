@@ -16,4 +16,4 @@ const getBody = (request, response, next) => {
     })
 }
 
-return { getBody };
+export { getBody };

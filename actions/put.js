@@ -1,5 +1,5 @@
 const putRequest = (request, response) => {
-    const url = request.url.split("?")[0]
+    const url = request.url.split("?")[0];
 
     switch (url) {
 
