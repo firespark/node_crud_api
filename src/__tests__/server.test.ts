@@ -1,16 +1,22 @@
-import { getRequest } from '../actions/get.js';
+import { getRequest } from '../actions/get';
+import { User } from '../models/User'; // Импортируем класс User
 
 describe('getRequest', () => {
-    let request;
-    let response;
+    let request: any; // Типизируем как any, так как мы добавляем кастомные поля
+    let response: any;
 
     beforeEach(() => {
+        // Инициализируем массив пользователей (экземпляры класса User)
+        const users: User[] = [
+            new User('John Doe', 30, ['reading']),
+            new User('Jane Doe', 25, ['writing'])
+        ];
+        users[0].id = '1'; // Присваиваем ID вручную для тестов
+        users[1].id = '2';
+
         request = {
             url: '',
-            users: {
-                1: { id: 1, name: 'John Doe' },
-                2: { id: 2, name: 'Jane Doe' }
-            }
+            users
         };
 
         response = {
@@ -34,7 +40,7 @@ describe('getRequest', () => {
 
         expect(response.statusCode).toBe(200);
         expect(response.setHeader).toHaveBeenCalledWith('Content-Type', 'application/json');
-        expect(response.body).toBe(JSON.stringify({ id: 1, name: 'John Doe' }));
+        expect(response.body).toBe(JSON.stringify(request.users[0]));
         expect(response.end).toHaveBeenCalled();
     });
 
@@ -58,5 +64,4 @@ describe('getRequest', () => {
         expect(response.body).toBe('User with ID 999 not found');
         expect(response.end).toHaveBeenCalled();
     });
-
 });
