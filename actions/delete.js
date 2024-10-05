@@ -1,4 +1,4 @@
-import { getUrlSegments, show404 } from '../helpers.js';
+import { getUrlSegments, showError } from '../helpers.js';
 
 const deleteRequest = (request, response) => {
     const urlSegments = getUrlSegments(request.url);
@@ -9,9 +9,7 @@ const deleteRequest = (request, response) => {
             const existingUser = request.users.find(id);
 
             if (!existingUser) {
-                response.statusCode = 400;
-                response.write(`User with ID ${id} not found`);
-                response.end();
+                showError(response, 400, `User with ID ${id} not found`);
                 return;
             }
             response.statusCode = 204;
@@ -22,7 +20,7 @@ const deleteRequest = (request, response) => {
             break;
 
         default:
-            show404(response, request.url);
+            showError(response, 404, `Cannot find ${request.url}`);
             break;
     }
 }

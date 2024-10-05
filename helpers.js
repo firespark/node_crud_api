@@ -20,14 +20,14 @@ const getUrlSegments = (url) => {
     return url.split("/").filter(segment => segment !== "");
 };
 
-const show404 = (response, url) => {
-    response.statusCode = 404;
-    response.write(`Cannot find ${url}`);
+const showError = (response, code, message) => {
+    response.statusCode = code;
+    response.write(message);
     response.end();
 };
 
 export {
     getBody,
     getUrlSegments,
-    show404
+    showError
 };

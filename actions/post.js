@@ -1,4 +1,4 @@
-import { getUrlSegments, show404 } from '../helpers.js';
+import { getUrlSegments, showError } from '../helpers.js';
 import { v4 as uuidv4 } from 'uuid';
 
 const postRequest = (request, response) => {
@@ -31,18 +31,12 @@ const postRequest = (request, response) => {
                 response.end();
             } 
             else {
-                
-                response.statusCode = 400;
-                response.setHeader("Content-Type", "application/json");
-                response.write(JSON.stringify({
-                    error: "Invalid request body. Expected format: { username: string, age: number, hobbies: string[] }"
-                }));
-                response.end();
+                showError(response, 400, "Invalid request body. Expected format: { username: string, age: number, hobbies: string[] }");
             }
             break;
 
         default:
-            show404(response, request.url);
+            showError(response, 404, `Cannot find ${request.url}`);
             break;
     }
 }
