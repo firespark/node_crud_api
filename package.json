@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "start:prod": "node ./src/server.js",
-    "start:dev": "set NODE_ENV=development && nodemon ./src/server.js"
+    "start:dev": "set NODE_ENV=development && nodemon ./src/server.js",
+    "start:multi": "node ./src/cluster.js"
   },
   "keywords": [],
   "author": "",

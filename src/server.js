@@ -11,8 +11,6 @@ import data from "./data.js";
 const PORT = process.env.PORT;
 const NODE_ENV = process.env.NODE_ENV;
 
-console.log(NODE_ENV)
-
 const server = http.createServer();
 
 server.on("request", (request, response) => {
