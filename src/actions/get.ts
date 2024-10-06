@@ -1,6 +1,6 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import { getUrlSegments, showError } from '../helpers.ts';
-import { User } from '../data.ts';
+import { User } from '../data';
 import { CustomIncomingMessage } from '../types.ts';
 
 const getRequest = (request: CustomIncomingMessage, response: ServerResponse): void => {

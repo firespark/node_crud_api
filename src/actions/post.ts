@@ -1,6 +1,6 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import { getUrlSegments, showError } from '../helpers.ts';
-import { v4 as uuidv4 } from 'uuid';
+//import { v4 as uuidv4 } from 'uuid';
 import { User } from '../data.ts';
 import { CustomIncomingMessage } from '../types.ts';
 
