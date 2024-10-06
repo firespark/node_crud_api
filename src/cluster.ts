@@ -1,4 +1,4 @@
-import cluster, { Worker } from 'cluster'; // Импортируем тип Worker из cluster
+import cluster, { Worker } from 'cluster';
 import http, { IncomingMessage, ServerResponse } from 'http';
 import os from 'os';
 import "dotenv/config";
@@ -10,15 +10,13 @@ if (cluster.isPrimary) {
     console.log(`Master ${process.pid} is running`);
 
     let currentWorker: number = 0;
-    const workers: Worker[] = []; // Используем импортированный тип Worker
+    const workers: Worker[] = [];
 
-    // Создаем воркеры для каждого CPU
     for (let i = 1; i < numCPUs; i++) {
         const worker: Worker = cluster.fork({ PORT: BASE_PORT + i });
         workers.push(worker);
     }
 
-    // Создаем HTTP сервер для балансировки нагрузки между воркерами
     const loadBalancer = http.createServer((req: IncomingMessage, res: ServerResponse) => {
         const workerPort: number = BASE_PORT + 1 + (currentWorker % (numCPUs - 1));
         currentWorker++;

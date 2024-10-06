@@ -1,6 +1,6 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import { getUrlSegments, showError } from '../helpers.ts';
-import { CustomIncomingMessage } from '../types.ts'; // Импортируем наш расширенный тип
+import { CustomIncomingMessage } from '../types.ts';
 
 const deleteRequest = (request: CustomIncomingMessage, response: ServerResponse): void => {
     const urlSegments: string[] = getUrlSegments(request.url || '');
@@ -20,10 +20,8 @@ const deleteRequest = (request: CustomIncomingMessage, response: ServerResponse)
                 return;
             }
 
-            // Удаляем пользователя по индексу
             request.users.splice(userIndex, 1);
 
-            // Отправляем ответ с кодом 204 (No Content)
             response.statusCode = 204;
             response.setHeader("Content-Type", "application/json");
             response.write(JSON.stringify(request.users));

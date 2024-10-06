@@ -8,7 +8,6 @@ import { deleteRequest } from './actions/delete.ts';
 import { getBody, showError } from './helpers.ts';
 import { data } from "./data.ts";
 
-// Определяем типы для request и response
 const PORT = process.env.PORT || 3000;
 const NODE_ENV = process.env.NODE_ENV || 'production';
 

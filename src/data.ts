@@ -1,6 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
 
-// Определяем интерфейс для пользователя
 interface IUser {
     id: string;
     username: string;
@@ -8,7 +7,6 @@ interface IUser {
     hobbies: string[];
 }
 
-// Класс для работы с пользователями
 class User implements IUser {
     id: string;
     username: string;
@@ -16,14 +14,13 @@ class User implements IUser {
     hobbies: string[];
 
     constructor(username: string, age: number, hobbies: string[]) {
-        this.id = uuidv4(); // Генерация уникального идентификатора
+        this.id = uuidv4();
         this.username = username;
         this.age = age;
         this.hobbies = hobbies;
     }
 }
 
-// Пример данных
 const data: User[] = [
 ];
 

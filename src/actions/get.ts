@@ -1,7 +1,7 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import { getUrlSegments, showError } from '../helpers.ts';
 import { User } from '../data.ts';
-import { CustomIncomingMessage } from '../types.ts'; // Импортируем наш расширенный тип
+import { CustomIncomingMessage } from '../types.ts';
 
 const getRequest = (request: CustomIncomingMessage, response: ServerResponse): void => {
     const urlSegments: string[] = getUrlSegments(request.url || '');

@@ -1,6 +1,6 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import { getUrlSegments, showError } from '../helpers.ts';
-import { User } from '../data.ts';  // Импортируем класс User
+import { User } from '../data.ts';
 import { CustomIncomingMessage } from '../types.ts';
 
 
@@ -13,7 +13,6 @@ const putRequest = (request: CustomIncomingMessage, response: ServerResponse): v
 
             const { username, age, hobbies } = request.body || {};
 
-            // Проверка данных тела запроса
             if (
                 (username !== undefined && typeof username !== 'string') ||
                 (age !== undefined && typeof age !== 'number') ||
@@ -23,13 +22,11 @@ const putRequest = (request: CustomIncomingMessage, response: ServerResponse): v
                 return;
             }
 
-            // Проверяем наличие пользователей
             if (!request.users) {
                 showError(response, 500, "Users data is missing");
                 return;
             }
 
-            // Ищем пользователя по ID
             const existingUser = request.users.find(user => user.id === id);
 
             if (!existingUser) {
@@ -37,14 +34,13 @@ const putRequest = (request: CustomIncomingMessage, response: ServerResponse): v
                 return;
             }
 
-            // Обновляем данные пользователя
             const updatedUser = new User(
                 username !== undefined ? username : existingUser.username,
                 age !== undefined ? age : existingUser.age,
                 hobbies !== undefined ? hobbies : existingUser.hobbies
             );
 
-            updatedUser.id = existingUser.id; // Сохраняем старый ID
+            updatedUser.id = existingUser.id;
 
             const userIndex = request.users.findIndex(user => user.id === id);
             request.users[userIndex] = updatedUser;
