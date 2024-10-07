@@ -11,11 +11,15 @@ import { data } from "./data.ts";
 const PORT = process.env.PORT || 3000;
 const NODE_ENV = process.env.NODE_ENV || 'production';
 
-const server = http.createServer((request: http.IncomingMessage, response: http.ServerResponse) => {
+export const server = http.createServer((request: http.IncomingMessage, response: http.ServerResponse) => {
     try {
         (request as any).users = data;
         (request as any).query = new URL(request.url || '', `http://${request.headers.host}`);
-
+        let url: URL = (request as any).query;
+        if (!url.pathname.startsWith('/api/')) {
+            showError(response, 404, 'Not Found');
+            return;
+        }
         switch (request.method) {
             case "GET":
                 getBody(request, response, getRequest);
@@ -42,6 +46,9 @@ const server = http.createServer((request: http.IncomingMessage, response: http.
     }
 });
 
-server.listen(PORT, (err?: Error) => {
-    err ? console.error(err) : console.log(`listening on port ${PORT}`);
-});
+if (NODE_ENV !== 'test') {
+    const PORT = process.env.PORT || 3000;
+    server.listen(PORT, (err?: Error) => {
+        err ? console.error(err) : console.log(`listening on port ${PORT}`);
+    });
+}

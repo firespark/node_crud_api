@@ -9,9 +9,20 @@ const putRequest = (request: CustomIncomingMessage, response: ServerResponse): v
 
     switch (urlSegments[0]) {
         case "users": {
+            if (!request.body) {
+                showError(response, 400, "Request body is missing");
+                return;
+            }
             const id = urlSegments[1];
 
-            const { username, age, hobbies } = request.body || {};
+            let parsedBody;
+            if (typeof request.body === "string") {
+                parsedBody = JSON.parse(request.body);
+            } else {
+                parsedBody = request.body; 
+            }
+            const { username, age, hobbies } = parsedBody;
+
 
             if (
                 (username !== undefined && typeof username !== 'string') ||

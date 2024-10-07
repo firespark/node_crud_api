@@ -36,7 +36,7 @@ const showError = (response: ServerResponse, code: number, message: string): voi
 
 
 const getUrlSegments = (url: string): string[] => {
-    return url.split("/").filter(segment => segment !== "");
+    return url.split("/").filter(segment => segment !== "" && segment !== "api");
 };
 
 export {

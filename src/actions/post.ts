@@ -13,8 +13,13 @@ const postRequest = (request: CustomIncomingMessage, response: ServerResponse): 
                 showError(response, 400, "Request body is missing");
                 return;
             }
-
-            const { username, age, hobbies } = request.body;
+            let parsedBody;
+            if (typeof request.body === "string") {
+                parsedBody = JSON.parse(request.body);
+            } else {
+                parsedBody = request.body; 
+            }
+            const { username, age, hobbies } = parsedBody;
 
             if (
                 typeof username === 'string' &&
